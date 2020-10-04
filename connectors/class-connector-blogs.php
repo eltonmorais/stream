@@ -24,7 +24,8 @@ class Connector_Blogs extends Connector {
 	 * @var array
 	 */
 	public $actions = array(
-		'wpmu_new_blog',
+		'wp_initialize_site',
+		'wp_delete_site',
 		'wpmu_activate_blog',
 		'wpmu_new_user',
 		'add_user_to_blog',
@@ -84,7 +85,7 @@ class Connector_Blogs extends Connector {
 			foreach ( $blogs as $blog ) {
 				$blog_details   = get_blog_details( $blog->blog_id );
 				$key            = sprintf( 'blog-%d', $blog->blog_id );
-				$labels[ $key ] = $blog_details->blogname;
+				$labels[ $key ] = $blog_details->siteurl;
 			}
 		}
 
@@ -144,10 +145,10 @@ class Connector_Blogs extends Connector {
 				'stream'
 			),
 			array(
-				'site_name' => $blog->blogname,
+				'site_name' => $blog->siteurl,
 			),
 			$blog_id,
-			sanitize_key( $blog->blogname ),
+			sanitize_key( $blog->siteurl ),
 			'created'
 		);
 	}
@@ -171,10 +172,10 @@ class Connector_Blogs extends Connector {
 				'stream'
 			),
 			array(
-				'site_name' => $blog->blogname,
+				'site_name' => $blog->siteurl,
 			),
 			$blog_id,
-			sanitize_key( $blog->blogname ),
+			sanitize_key( $blog->siteurl ),
 			'created',
 			$user_id
 		);
@@ -206,11 +207,11 @@ class Connector_Blogs extends Connector {
 			),
 			array(
 				'user_name' => $user->display_name,
-				'site_name' => $blog->blogname,
+				'site_name' => $blog->siteurl,
 				'role_name' => $role,
 			),
 			$blog_id,
-			sanitize_key( $blog->blogname ),
+			sanitize_key( $blog->siteurl ),
 			'updated'
 		);
 	}
@@ -240,10 +241,10 @@ class Connector_Blogs extends Connector {
 			),
 			array(
 				'user_name' => $user->display_name,
-				'site_name' => $blog->blogname,
+				'site_name' => $blog->siteurl,
 			),
 			$blog_id,
-			sanitize_key( $blog->blogname ),
+			sanitize_key( $blog->siteurl ),
 			'updated'
 		);
 	}
@@ -374,11 +375,11 @@ class Connector_Blogs extends Connector {
 				'stream'
 			),
 			array(
-				'site_name' => $blog->blogname,
+				'site_name' => $blog->siteurl,
 				'status'    => $status,
 			),
 			$blog_id,
-			sanitize_key( $blog->blogname ),
+			sanitize_key( $blog->siteurl ),
 			$action
 		);
 	}
